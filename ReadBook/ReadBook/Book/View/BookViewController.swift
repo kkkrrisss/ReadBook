@@ -769,23 +769,28 @@ final class BookViewController: UIViewController {
     
     @objc
     private func editCoverTapped() {
-        let alert = UIAlertController(title: "Обложка", message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Загрузить из галереи", style: .default, handler: { _ in
+        var actions: [UIAlertAction] = []
+        
+        actions.append(UIAlertAction(title: "Загрузить из галереи",
+                                     style: .default) { _ in
             self.openImagePicker()
-        }))
+        })
         
         //delete if image not mock
         if let currentImage = viewModel?.getCoverImage(),
            currentImage != UIImage(named: "mock") {
-            alert.addAction(UIAlertAction(title: "Удалить обложку", style: .destructive, handler: { _ in
+            actions.append(UIAlertAction(title: "Удалить обложку",
+                                         style: .destructive) { _ in
                 self.viewModel?.markImageForDeletion()
                 self.coverImageView.image = self.viewModel?.getCoverImage()
-            }))
+            })
         }
         
-        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-        present(alert, animated: true)
+        
+        AlertManager.showActionShit(on: self,
+                                    title: "Обложка",
+                                    actions: actions)
     }
     
     private func openImagePicker() {

@@ -140,24 +140,27 @@ class HomeScreenViewController: UIViewController {
     }
     @objc
     private func goToBook() {
-        let alert = UIAlertController(title: "Добавить книгу", message: "Выберите способ добавления", preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Ввести вручную", style: .default, handler: { _ in
-                let bookVC = BookViewController()
-                let viewModel = BookViewModel(book: nil)
-                bookVC.viewModel = viewModel
-                self.navigationController?.pushViewController(bookVC, animated: true)
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Поиск", style: .default, handler: { _ in
-                let viewModel = BookSearchViewModel()
-                let searchVC = BookSearchViewController(viewModel: viewModel)
-                self.navigationController?.pushViewController(searchVC, animated: true)
-            }))
-            
-            alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
-            
-            present(alert, animated: true)
+        
+        let actions = [
+               UIAlertAction(title: "Ввести вручную",
+                             style: .default) { _ in
+                   let bookVC = BookViewController()
+                   let viewModel = BookViewModel(book: nil)
+                   bookVC.viewModel = viewModel
+                   self.navigationController?.pushViewController(bookVC, animated: true)
+               },
+               UIAlertAction(title: "Поиск",
+                             style: .default) { _ in
+                   let viewModel = BookSearchViewModel()
+                   let searchVC = BookSearchViewController(viewModel: viewModel)
+                   self.navigationController?.pushViewController(searchVC, animated: true)
+               }
+           ]
+           
+        AlertManager.showActionShit(on: self,
+                                    title: "Добавить книгу",
+                                    message: "Выберите способ добавления",
+                                    actions: actions)
     }
     
     @objc
