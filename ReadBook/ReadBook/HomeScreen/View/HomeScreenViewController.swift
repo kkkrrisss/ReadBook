@@ -162,15 +162,13 @@ class HomeScreenViewController: UIViewController {
     
     @objc
     private func goToLibrary() {
-        let libraryVC = LibraryListViewController()
-        libraryVC.viewModel = LibraryListViewModel()
+        let libraryVC = LibraryListViewController(viewModel:  LibraryListViewModel())
         navigationController?.pushViewController(libraryVC, animated: true)
     }
     
     @objc
     private func goToWishList() {
-        let wishlistVC = WishListViewController()
-        wishlistVC.viewModel = WishListViewModel()
+        let wishlistVC = WishListViewController(viewModel:  WishListViewModel())
         navigationController?.pushViewController(wishlistVC, animated: true)
     }
 }

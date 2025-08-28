@@ -9,33 +9,12 @@ import Foundation
 import UIKit
 import CoreData
 
-protocol LibraryListViewModelProtocol {
-    var section: [TableViewSection] { get }
-    var reloadTable: (() -> Void)? { get set }
+final class LibraryListViewModel: BaseTableViewModel {
     
-    func getBooks()
-    func deleteBook(at indexPath: IndexPath)
-}
-
-final class LibraryListViewModel: LibraryListViewModelProtocol {
-    //MARK: - Properties
-    var reloadTable: (() -> Void)?
-    
-    private(set) var section: [TableViewSection] = [] {
-        didSet {
-            reloadTable?()
-        }
-    }
-    
-    //MARK: - Initialization
-    init() {
-        getBooks()
-    }
-    
-    //MARK: - Methods
-    func getBooks() {
-        section = []
+    override func getBooks() {
+        super.getBooks()
         
+        section = []
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let request: NSFetchRequest<BookEntity> = BookEntity.fetchRequest()
         
@@ -86,22 +65,5 @@ final class LibraryListViewModel: LibraryListViewModelProtocol {
             print("Failed to fetch books: \(error)")
         }
         
-    }
-    
-    func deleteBook(at indexPath: IndexPath) {
-        let context = CoreDataStack.shared.persistentContainer.viewContext
-        
-        guard let book = section[indexPath.section].items[indexPath.row] as? Book,
-        let objectID = book.id else { return }
-        
-        let object = context.object(with: objectID)
-        context.delete(object)
-        
-        do {
-            try context.save()
-            getBooks()
-        } catch {
-            print("Error deleting book: \(error)")
-        }
     }
 }
