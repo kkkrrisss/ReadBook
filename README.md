@@ -10,6 +10,8 @@ The application also allows searching and adding books via the Google Books API.
 - CoreData
 - FileManager
 - MVVM
+- SnapKit
+- Google Books API
 
 ## Data Storage
 - **CoreData:** Stores book information such as title, author, start/end dates, rating, and comments.
