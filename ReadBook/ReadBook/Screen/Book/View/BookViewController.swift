@@ -12,13 +12,7 @@ final class BookViewController: UIViewController {
     //MARK: - GUI Variables
     
     //MARK: Scroll
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        //scrollView.translatesAutoresizingMaskIntoConstraints = false
-        //scrollView.showsVerticalScrollIndicator = false
-        
-        return scrollView
-    }()
+    private let scrollView = UIScrollView()
     
     private let contentView: UIView = UIView()
     
@@ -65,58 +59,23 @@ final class BookViewController: UIViewController {
         return button
     }()
     
-    private let titleView: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private let titleView = UIView()
     
-    private let authorView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let authorView = UIView()
     
-    private let publisherView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let publisherView = UIView()
     
-    private let pageView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let pageView = UIView()
     
-    private let descriptionView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let descriptionView = UIView()
     
-    private let startDateView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let startDateView = UIView()
     
-    private let endDateView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let endDateView = UIView()
     
-    private let ratingView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let ratingView = UIView()
     
-    private let commentView: UIView = {
-        let view = UIView()
-        
-        return view
-    }()
+    private let commentView = UIView()
     
     //MARK: Buttons
     private let wishListButton: UIButton = {
@@ -138,98 +97,43 @@ final class BookViewController: UIViewController {
     //MARK: Labels and Text Fields
     
     //Title
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Title"
-        return label
-    }()
+    private lazy var titleLabel = makeLabel(text: "Title")
     
-    private let titleTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let titleTextField = UITextField()
     
     //Author
-    private let authorLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Author"
-        return label
-    }()
+    private lazy var authorLabel = makeLabel(text: "Author")
     
-    private let authorTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let authorTextField = UITextField()
     
     //publisher
-    private let publisherLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Publisher"
-        return label
-    }()
+    private lazy var publisherLabel = makeLabel(text: "Publisher")
     
-    
-    private let publisherTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let publisherTextField = UITextField()
     
     //pages
-    private let pagesLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Page"
-        return label
-    }()
+    private lazy var pagesLabel = makeLabel(text: "Page")
     
-    private let pagesTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let pagesTextField = UITextField()
     
     //description
-    private let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Description"
-        return label
-    }()
+    private lazy var descriptionLabel = makeLabel(text: "Description")
     
-    private let descriptionTextView: UITextView = {
-        let view = UITextView()
-        return view
-    }()
+    private let descriptionTextView = UITextView()
     
     
     //startDate
-    private let startDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Start date:"
-        return label
-    }()
+    private lazy var startDateLabel = makeLabel(text: "Start date:")
     
-    private let startDateTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let startDateTextField = UITextField()
     
     //endDate
-    private let endDateLabel: UILabel = {
-        let label = UILabel()
-        label.text = "End date:"
-        return label
-    }()
+    private lazy var endDateLabel = makeLabel(text: "End date:")
     
-    private let endDateTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
+    private let endDateTextField = UITextField()
     
     //rating
-    private let ratingLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Rating:"
-        
-        return label
-    }()
+    private lazy var ratingLabel = makeLabel(text: "Rating:")
     
     private let ratingStackView: UIStackView = {
         let stack = UIStackView()
@@ -240,18 +144,9 @@ final class BookViewController: UIViewController {
     }()
     
     //comment
-    private let commentLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Comment:"
-        
-        return label
-    }()
+    private lazy var commentLabel = makeLabel(text: "Comment:")
     
-    private let commentTextView: UITextView = {
-        let view = UITextView()
-        
-        return view
-    }()
+    private let commentTextView = UITextView()
     
     //MARK: - Properties
     var viewModel: BookViewModelProtocol?
@@ -297,6 +192,13 @@ final class BookViewController: UIViewController {
     
     //MARK: - Private Methods
     
+    private func makeLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = .systemFont(ofSize: 16, weight: .medium)
+        label.textColor = .textColor
+        return label
+    }
     
     
     //MARK: Setup and configure
@@ -313,9 +215,11 @@ final class BookViewController: UIViewController {
         titleTextField.text = viewModel?.book?.title
         authorTextField.text = viewModel?.book?.author
         publisherTextField.text = viewModel?.book?.publisher
+        
         if let pages = viewModel?.book?.pages {
             pagesTextField.text = pages == 0 ? "" : String(pages)
         }
+        
         descriptionTextView.text = viewModel?.book?.description
         startDate = viewModel?.book?.startDate
         endDate = viewModel?.book?.endDate
@@ -330,7 +234,6 @@ final class BookViewController: UIViewController {
         configureButtons()
         setupEditCoverButton()
         setupTextFields()
-        setupLabels()
         setupRatingView()
         setupDatePickers()
         updateStars()
@@ -375,32 +278,15 @@ final class BookViewController: UIViewController {
                                                      ratingView,
                                                      commentView])
         
-        titleView.addSubviews([titleLabel,
-                               titleTextField])
-        
-        authorView.addSubviews([authorLabel,
-                                authorTextField])
-        
-        publisherView.addSubviews([publisherLabel,
-                                   publisherTextField])
-        
-        pageView.addSubviews([pagesLabel,
-                              pagesTextField])
-        
-        descriptionView.addSubviews([descriptionLabel,
-                                     descriptionTextView])
-        
-        startDateView.addSubviews([startDateLabel,
-                                   startDateTextField])
-        
-        endDateView.addSubviews([endDateLabel,
-                                 endDateTextField])
-        
-        ratingView.addSubviews([ratingLabel,
-                                ratingStackView])
-        
-        commentView.addSubviews([commentLabel,
-                                 commentTextView])
+        addField(to: titleView, label: titleLabel, field: titleTextField)
+        addField(to: authorView, label: authorLabel, field: authorTextField)
+        addField(to: publisherView, label: publisherLabel, field: publisherTextField)
+        addField(to: pageView, label: pagesLabel, field: pagesTextField)
+        addField(to: descriptionView, label: descriptionLabel, field: descriptionTextView, fieldHeight: 100)
+        addField(to: startDateView, label: startDateLabel, field: startDateTextField)
+        addField(to: endDateView, label: endDateLabel, field: endDateTextField)
+        addField(to: ratingView, label: ratingLabel, field: ratingStackView, fieldHeight: 40)
+        addField(to: commentView, label: commentLabel, field: commentTextView, fieldHeight: 100)
     }
     
     private func setupConstraints() {
@@ -444,69 +330,12 @@ final class BookViewController: UIViewController {
             make.bottom.equalToSuperview()
         }
         
-        [titleLabel,
-         authorLabel,
-         publisherLabel,
-         pagesLabel,
-         descriptionLabel,
-         startDateLabel,
-         endDateLabel,
-         ratingLabel,
-         commentLabel].forEach { label in
-            label.snp.makeConstraints { make in
-                make.top.leading.equalToSuperview()
-                make.height.equalTo(heightTextField)
-            }
-        }
-        
-        titleTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
-        }
-        
-        authorTextField.snp.makeConstraints { make in
-            make.top.equalTo(authorLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
-        }
-        
-        
-        publisherTextField.snp.makeConstraints { make in
-            make.top.equalTo(publisherLabel.snp.bottom).offset(0)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
-        }
-        
-        pagesTextField.snp.makeConstraints { make in
-            make.top.equalTo(pagesLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
-        }
-        
-        descriptionTextView.snp.makeConstraints { make in
-            make.top.equalTo(descriptionLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(100)
-        }
-        
         wishListButton.snp.makeConstraints { make in
             make.height.equalTo(50)
         }
+        
         libraryButton.snp.makeConstraints { make in
             make.height.equalTo(50)
-        }
-        
-        startDateTextField.snp.makeConstraints { make in
-            make.top.equalTo(startDateLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
-        }
-        
-        endDateTextField.snp.makeConstraints { make in
-            make.top.equalTo(endDateLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(heightTextField)
         }
         
         ratingStackView.snp.makeConstraints { make in
@@ -514,11 +343,27 @@ final class BookViewController: UIViewController {
             make.leading.bottom.trailing.equalToSuperview()
             make.height.equalTo(40)
         }
+    }
+    
+    private func addField(to container: UIView,
+                          label: UILabel,
+                          field: UIView,
+                          fieldHeight: CGFloat? = nil) {
+        container.addSubviews([label, field])
         
-        commentTextView.snp.makeConstraints { make in
-            make.top.equalTo(commentLabel.snp.bottom)
-            make.leading.bottom.trailing.equalToSuperview()
-            make.height.equalTo(100)
+        label.snp.makeConstraints { make in
+            make.top.leading.equalToSuperview()
+            make.height.equalTo(heightTextField)
+        }
+        
+        field.snp.makeConstraints { make in
+            make.top.equalTo(label.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
+            if let h = fieldHeight {
+                make.height.equalTo(h)
+            } else {
+                make.height.equalTo(heightTextField)
+            }
         }
     }
     
@@ -565,20 +410,8 @@ final class BookViewController: UIViewController {
         }
     }
     
-    private func setupLabels() {
-        [titleLabel,
-         authorLabel,
-         publisherLabel,
-         pagesLabel,
-         descriptionLabel,
-         startDateLabel,
-         endDateLabel,
-         commentLabel,
-         ratingLabel].forEach { label in
-            label.font = .systemFont(ofSize: 16, weight: .medium)
-            label.textColor = .textColor
-        }
-    }
+    
+    
     //MARK: Date Picker
     private func setupDatePickers() {
         setupDatePicker(for: startDateTextField, selector: #selector(donePressedStart))
@@ -820,6 +653,7 @@ extension BookViewController: UITextFieldDelegate {
         textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
+
 //MARK: - UIImagePickerControllerDelegate
 extension BookViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
