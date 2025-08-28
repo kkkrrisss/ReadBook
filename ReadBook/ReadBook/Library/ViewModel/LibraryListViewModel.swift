@@ -92,9 +92,10 @@ final class LibraryListViewModel: LibraryListViewModelProtocol {
     func deleteBook(at indexPath: IndexPath) {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         
-        guard let book = section[indexPath.section].items[indexPath.row] as? Book else { return }
+        guard let book = section[indexPath.section].items[indexPath.row] as? Book,
+        let objectID = book.id else { return }
         
-        let objectID = book.id
+        
         
         let object = context.object(with: objectID)
         context.delete(object)

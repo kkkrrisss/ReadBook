@@ -58,8 +58,9 @@ final class BookViewModel: BookViewModelProtocol {
         let context = CoreDataStack.shared.context
         let bookEntity: BookEntity
         
-        if let book = book {
-            bookEntity = context.object(with: book.id) as! BookEntity
+        if let book = book,
+           let id = book.id{
+            bookEntity = context.object(with: id) as! BookEntity 
         } else {
             bookEntity = BookEntity(context: context)
         }
