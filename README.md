@@ -1,6 +1,7 @@
 # ReadBook
 
-ReadBook is an application for reading and organizing books. The project is implemented in Swift and Xcode. The app provides data storage for books and handles local file management. Store book information using CoreData. Save and load local files using FileManager.
+ReadBook is an application for reading and organizing books. The project is implemented in Swift and Xcode. The app provides data storage for books and handles local file management. Book information is stored using CoreData, and local files are managed with FileManager.
+The application also allows searching and adding books via the Google Books API.
 
 ## Technologies
 - Swift 
