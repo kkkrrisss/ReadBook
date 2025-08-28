@@ -593,7 +593,7 @@ final class BookViewController: UIViewController {
            let date = dateFormatter.date(from: text) {
             datePicker.date = date
         } else {
-            datePicker.date = Date() // иначе сегодняшняя
+            datePicker.date = Date()
         }
         
         textField.inputView = datePicker

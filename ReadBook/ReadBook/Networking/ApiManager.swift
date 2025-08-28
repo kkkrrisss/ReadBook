@@ -69,7 +69,11 @@ final class ApiManager {
     
     static func getImageData(url: String,
                              completion: @escaping (Result<Data, Error>) -> ()) {
-        guard let url = URL(string: url) else { return }
+        var text = url
+        if text.hasPrefix("http://") {
+            text.insert("s", at: text.index(text.startIndex, offsetBy: 4))
+        }
+        guard let url = URL(string: text) else { return }
         
         let session = URLSession.shared.dataTask(with: url) {
             data, _, error in

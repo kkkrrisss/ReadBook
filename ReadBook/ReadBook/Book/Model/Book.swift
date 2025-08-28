@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 enum TypeBook: Int {
     case wishlist = 0
@@ -29,6 +30,17 @@ struct Book: TableViewItemProtocol {
     
     let imageString: String?
     var imageData: Data?
+    
+    var image: UIImage? {
+        if let data = imageData {
+            return UIImage(data: data)
+        } else if let url = imageURL,
+                  let image =  FileManagerPersistent.read(from: url){
+            return image
+        } else {
+            return UIImage(named: "mock")
+        }
+    }
     
     init(id: NSManagedObjectID?,
          type: TypeBook,

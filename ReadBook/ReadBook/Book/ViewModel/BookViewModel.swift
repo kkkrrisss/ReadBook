@@ -24,8 +24,8 @@ protocol BookViewModelProtocol {
               comment: String?)
     
     func getCoverImage() -> UIImage?
-      func setTempImage(_ image: UIImage?)
-      func markImageForDeletion()
+    func setTempImage(_ image: UIImage?)
+    func markImageForDeletion()
 }
 
 final class BookViewModel: BookViewModelProtocol {
@@ -60,7 +60,7 @@ final class BookViewModel: BookViewModelProtocol {
         
         if let book = book,
            let id = book.id{
-            bookEntity = context.object(with: id) as! BookEntity 
+            bookEntity = context.object(with: id) as! BookEntity
         } else {
             bookEntity = BookEntity(context: context)
         }
@@ -83,6 +83,10 @@ final class BookViewModel: BookViewModelProtocol {
         } else if let image = tempImage {
             let fileName = UUID().uuidString + ".jpg"
             url = FileManagerPersistent.save(image, with: fileName)
+        } else if let data = book?.imageData,
+                  let image = UIImage(data: data){
+            let fileName = UUID().uuidString + ".jpg"
+            url = FileManagerPersistent.save(image, with: fileName)
         }
         bookEntity.imageURL = url
         
@@ -94,11 +98,10 @@ final class BookViewModel: BookViewModelProtocol {
     func getCoverImage() -> UIImage? {
         if let image = tempImage {
             return image
-        } else if let url = book?.imageURL, !shouldDeleteImage,
-                  let image = FileManagerPersistent.read(from: url) {
-            return image
-        } else {
+        } else if shouldDeleteImage {
             return UIImage(named: "mock")
+        } else {
+            return book?.image
         }
     }
     

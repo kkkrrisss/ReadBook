@@ -59,7 +59,6 @@ final class BookSearchViewModel: BookSearchViewModelProtocol {
     
     
     private func loadImage() {
-        
         for (index, item) in books.enumerated() {
               if  let url = item.imageString {
                 ApiManager.getImageData(url: url) { [weak self] result in

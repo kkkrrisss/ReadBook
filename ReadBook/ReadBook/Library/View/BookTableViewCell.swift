@@ -80,12 +80,7 @@ final class BookTableViewCell: UITableViewCell {
         authorLabel.textColor = .textColor
         authorLabel.font = .systemFont(ofSize: 18, weight: .medium)
         
-        if let url = book.imageURL,
-           let image = FileManagerPersistent.read(from: url) {
-            coverView.image = image
-        } else {
-            coverView.image = UIImage(named: "mock")
-        }
+        coverView.image = book.image
         
         if book.rating == 0 {
             starLabel.isHidden = true
