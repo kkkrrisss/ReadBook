@@ -100,8 +100,10 @@ final class BookViewModel: BookViewModelProtocol {
             return image
         } else if shouldDeleteImage {
             return UIImage(named: "mock")
+        } else if let image = book?.image {
+            return image
         } else {
-            return book?.image
+            return UIImage(named: "mock")
         }
     }
     

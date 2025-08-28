@@ -64,6 +64,7 @@ final class LibraryListViewController: UITableViewController {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension LibraryListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         viewModel?.section.count ?? 0
@@ -88,10 +89,7 @@ extension LibraryListViewController {
         }
         return UITableViewCell()
     }
-}
-
-//MARK: - UITableViewDelegate
-extension LibraryListViewController {
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let book = viewModel?.section[indexPath.section].items[indexPath.row] as? Book else { return }
         let bookVC = BookViewController()
@@ -125,5 +123,5 @@ extension LibraryListViewController {
             header.textLabel?.font = .systemFont(ofSize: 14, weight: .bold)
         }
     }
-    
 }
+

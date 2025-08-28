@@ -14,6 +14,7 @@ protocol WishListViewModelProtocol {
     var reloadTable: (() -> Void)? { get set }
     
     func getBooks()
+    func deleteBook(at indexPath: IndexPath)
 }
 
 final class WishListViewModel: WishListViewModelProtocol {
@@ -65,6 +66,22 @@ final class WishListViewModel: WishListViewModelProtocol {
             print("Failed to fetch books: \(error)")
         }
         
+    }
+    
+    func deleteBook(at indexPath: IndexPath) {
+        let context = CoreDataStack.shared.persistentContainer.viewContext
+        
+        guard let objectID = books[indexPath.row].id else { return }
+        
+        let object = context.object(with: objectID)
+        context.delete(object)
+        
+        do {
+            try context.save()
+            getBooks()
+        } catch {
+            print("Error deleting book: \(error)")
+        }
     }
 }
 

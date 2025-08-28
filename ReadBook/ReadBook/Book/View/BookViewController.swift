@@ -521,7 +521,7 @@ final class BookViewController: UIViewController {
     }
     
     private func configureButtons() {
-        // изначально выбран WishList
+        //изначально выбран WishList
         if viewModel?.typeBook == .library {
             libraryButton.isSelected = true
         } else {
@@ -773,7 +773,7 @@ final class BookViewController: UIViewController {
             self.openImagePicker()
         }))
         
-        //удалить если текущая картинка не mock
+        //delete if image not mock
         if let currentImage = viewModel?.getCoverImage(),
            currentImage != UIImage(named: "mock") {
             alert.addAction(UIAlertAction(title: "Удалить обложку", style: .destructive, handler: { _ in

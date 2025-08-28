@@ -120,13 +120,13 @@ class HomeScreenViewController: UIViewController {
         setupButton(addBookButton)
         addBookButton.addTarget(self, action: #selector(goToBook), for: .touchUpInside)
         
-        //AddBookButton
+        // libraryButton
         libraryButton.setTitle("My Library", for: .normal)
         setupButton(libraryButton)
         libraryButton.translatesAutoresizingMaskIntoConstraints = false
         libraryButton.addTarget(self, action: #selector(goToLibrary), for: .touchUpInside)
         
-        //AddBookButton
+        //wishListButton
         wishListButton.setTitle("Wish List", for: .normal)
         setupButton(wishListButton)
         wishListButton.translatesAutoresizingMaskIntoConstraints = false

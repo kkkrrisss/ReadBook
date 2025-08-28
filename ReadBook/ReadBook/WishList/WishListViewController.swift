@@ -53,6 +53,7 @@ final class WishListViewController: UITableViewController {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension WishListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         1
@@ -73,15 +74,28 @@ extension WishListViewController {
         }
         return UITableViewCell()
     }
-}
-
-//MARK: - UITableViewDelegate
-extension WishListViewController {
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let book = viewModel?.books[indexPath.row] as? Book else { return }
         let bookVC = BookViewController()
         let viewModel = BookViewModel(book: book)
         bookVC.viewModel = viewModel
         navigationController?.pushViewController(bookVC, animated: true)
+    }
+    override func tableView(_ tableView: UITableView,
+                            trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath
+    ) -> UISwipeActionsConfiguration? {
+        
+        let deleteAction = UIContextualAction(style: .destructive,
+                                              title: "Delete") { [weak self] (_, _, completionHandler) in
+            self?.viewModel?.deleteBook(at: indexPath)
+            completionHandler(true)
+        }
+        
+        deleteAction.backgroundColor = .systemRed
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        return configuration
     }
 }

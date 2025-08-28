@@ -95,14 +95,12 @@ final class LibraryListViewModel: LibraryListViewModelProtocol {
         guard let book = section[indexPath.section].items[indexPath.row] as? Book,
         let objectID = book.id else { return }
         
-        
-        
         let object = context.object(with: objectID)
         context.delete(object)
         
         do {
             try context.save()
-            getBooks() // обновляем данные и секции
+            getBooks()
         } catch {
             print("Error deleting book: \(error)")
         }

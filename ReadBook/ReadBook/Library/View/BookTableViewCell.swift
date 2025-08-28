@@ -34,17 +34,13 @@ final class BookTableViewCell: UITableViewCell {
     private let titleLabel: UILabel = {
         let label = UILabel()
         
-        label.text = "Title"
-        label.font = .boldSystemFont(ofSize: 18)
+        label.numberOfLines = 2
         
         return label
     }()
     
     private let authorLabel: UILabel = {
         let label = UILabel()
-        
-        label.text = "Author"
-        label.font = .boldSystemFont(ofSize: 18)
         
         return label
     }()
@@ -78,7 +74,7 @@ final class BookTableViewCell: UITableViewCell {
         
         authorLabel.text = book.author
         authorLabel.textColor = .textColor
-        authorLabel.font = .systemFont(ofSize: 18, weight: .medium)
+        authorLabel.font = .systemFont(ofSize: 14, weight: .regular)
         
         coverView.image = book.image
         
@@ -132,6 +128,7 @@ final class BookTableViewCell: UITableViewCell {
         titleLabel.snp.makeConstraints { make in
             make.top.equalToSuperview().inset(10)
             make.leading.equalTo(coverView.snp.trailing).offset(15)
+            make.trailing.equalToSuperview().inset(10)
         }
         
         authorLabel.snp.makeConstraints { make in
