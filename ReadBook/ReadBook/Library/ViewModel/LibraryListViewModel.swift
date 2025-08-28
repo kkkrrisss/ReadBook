@@ -30,7 +30,6 @@ final class LibraryListViewModel: LibraryListViewModelProtocol {
     //MARK: - Initialization
     init() {
         getBooks()
-        print(section)
     }
     
     //MARK: - Methods

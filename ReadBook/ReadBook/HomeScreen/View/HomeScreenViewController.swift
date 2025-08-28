@@ -58,8 +58,6 @@ class HomeScreenViewController: UIViewController {
     private let buttonDist: CGFloat = 25
     
     private var titleTopHeight: CGFloat {
-        print(view.frame.height)
-        print((view.frame.height / 2) - 100)
         return (view.frame.height / 2) - 150
     }
     

@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol WishListViewModelProtocol {
-    var books: [Book] { get }
+    var section: [TableViewSection] { get }
     var reloadTable: (() -> Void)? { get set }
     
     func getBooks()
@@ -21,11 +21,12 @@ final class WishListViewModel: WishListViewModelProtocol {
     //MARK: - Properties
     var reloadTable: (() -> Void)?
     
-    private(set) var books: [Book] = [] {
+    private(set) var section: [TableViewSection] = [] {
         didSet {
             reloadTable?()
         }
     }
+    
     
     //MARK: - Initialization
     init() {
@@ -34,7 +35,7 @@ final class WishListViewModel: WishListViewModelProtocol {
     
     //MARK: - Methods
     func getBooks() {
-        books = []
+        section = []
         let context = CoreDataStack.shared.persistentContainer.viewContext
         let request: NSFetchRequest<BookEntity> = BookEntity.fetchRequest()
         
@@ -42,7 +43,6 @@ final class WishListViewModel: WishListViewModelProtocol {
             let allBooks = try context.fetch(request)
 
             let wishListBooks = allBooks.filter { $0.type == TypeBook.wishlist.rawValue }
-            print(wishListBooks)
             
             wishListBooks.forEach { bookEntity in
                 let book = Book(
@@ -59,7 +59,7 @@ final class WishListViewModel: WishListViewModelProtocol {
                     endDate: bookEntity.endDate,
                     comment: bookEntity.comment
                 )
-                books.append(book)
+                section.append(TableViewSection(items: [book]))
             }
             
         } catch {
@@ -71,7 +71,8 @@ final class WishListViewModel: WishListViewModelProtocol {
     func deleteBook(at indexPath: IndexPath) {
         let context = CoreDataStack.shared.persistentContainer.viewContext
         
-        guard let objectID = books[indexPath.row].id else { return }
+        guard let book = section[indexPath.section].items[indexPath.row] as? Book,
+        let objectID = book.id else { return }
         
         let object = context.object(with: objectID)
         context.delete(object)

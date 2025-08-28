@@ -56,15 +56,15 @@ final class WishListViewController: UITableViewController {
 //MARK: - UITableViewDelegate
 extension WishListViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
-        1
+        viewModel?.section.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel?.books.count ?? 0
+        viewModel?.section[section].items.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let book = viewModel?.books[indexPath.row] as? Book else { return UITableViewCell() }
+        guard let book = viewModel?.section[indexPath.section].items[indexPath.row] as? Book else { return UITableViewCell() }
         
         if let cell = tableView.dequeueReusableCell(withIdentifier: "BookTableViewCell",
                                                            for: indexPath) as? BookTableViewCell {
@@ -76,7 +76,7 @@ extension WishListViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let book = viewModel?.books[indexPath.row] as? Book else { return }
+        guard let book = viewModel?.section[indexPath.section].items[indexPath.row] as? Book else { return }
         let bookVC = BookViewController()
         let viewModel = BookViewModel(book: book)
         bookVC.viewModel = viewModel

@@ -313,7 +313,9 @@ final class BookViewController: UIViewController {
         titleTextField.text = viewModel?.book?.title
         authorTextField.text = viewModel?.book?.author
         publisherTextField.text = viewModel?.book?.publisher
-        pagesTextField.text = viewModel?.book?.pages as? String
+        if let pages = viewModel?.book?.pages {
+            pagesTextField.text = pages == 0 ? "" : String(pages)
+        }
         descriptionTextView.text = viewModel?.book?.description
         startDate = viewModel?.book?.startDate
         endDate = viewModel?.book?.endDate
@@ -741,9 +743,9 @@ final class BookViewController: UIViewController {
         } else {
             viewModel?.save(title: titleTextField.text ?? "",
                             author: authorTextField.text ?? "",
-                            publisher: publisherTextField.text ?? "",
-                            description: descriptionTextView.text ?? "",
-                            pages: Int(pagesTextField.text ?? "") ?? 0,
+                            publisher: publisherTextField.text,
+                            description: descriptionTextView.text,
+                            pages: Int(pagesTextField.text ?? ""),
                             startDate: startDate,
                             endDate: endDate,
                             comment: commentTextView.text ?? "")
