@@ -42,10 +42,15 @@ final class BookSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = "Search"
+        navigationItem.largeTitleDisplayMode = .never
+        
         setupUI()
         setupDelegates()
+        setupGesture()
         setupViewModel()
     }
+    
     
     // MARK: - Setup
     private func setupUI() {
@@ -61,7 +66,7 @@ final class BookSearchViewController: UIViewController {
     
     private func setupConstraints() {
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(10)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(5)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(60)
         }
@@ -86,6 +91,18 @@ final class BookSearchViewController: UIViewController {
         viewModel.reloadCell = { [weak self] indexPath in
             self?.tableView.reloadRows(at: [indexPath], with: .none)
         }
+    }
+    
+    private func setupGesture() {
+        let recognizer = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        recognizer.cancelsTouchesInView = false //не блокирует другие события
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    @objc
+    private func hideKeyboard() {
+        view.endEditing(true)
     }
 }
 

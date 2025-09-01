@@ -385,6 +385,7 @@ private extension BookViewController {
     private func setupGesture() {
         let recognizer = UITapGestureRecognizer(target: self,
                                                 action: #selector(hideKeyboard))
+        recognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(recognizer)
     }
     

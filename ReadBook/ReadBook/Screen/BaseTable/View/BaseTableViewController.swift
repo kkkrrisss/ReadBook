@@ -110,7 +110,7 @@ extension BaseTableViewController {
             completionHandler(true)
         }
         
-        deleteAction.backgroundColor = .systemRed
+        deleteAction.backgroundColor = .darkBord
         
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         configuration.performsFirstActionWithFullSwipe = true
