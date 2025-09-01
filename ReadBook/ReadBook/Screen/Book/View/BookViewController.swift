@@ -150,6 +150,7 @@ final class BookViewController: UIViewController {
     
     //MARK: - Properties
     var viewModel: BookViewModelProtocol?
+    private weak var activeField: UIView?
     
     private let heightTextField = 30
     private let cornerRadiusTextField: CGFloat = 8
@@ -188,8 +189,15 @@ final class BookViewController: UIViewController {
         configure()
         setupUI()
         setDelegate()
+        setupGesture()
+        registerForKeyboardNotification()
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        unregisterForKeyboardNotification()
+    }
     //MARK: - Private Methods
     
     private func makeLabel(text: String) -> UILabel {
@@ -202,6 +210,8 @@ final class BookViewController: UIViewController {
     
     
     //MARK: Setup and configure
+    
+    
     private func setDelegate() {
         startDateTextField.delegate = self
         endDateTextField.delegate = self
@@ -209,6 +219,9 @@ final class BookViewController: UIViewController {
         authorTextField.delegate = self
         publisherTextField.delegate = self
         pagesTextField.delegate = self
+        
+        descriptionTextView.delegate = self
+        commentTextView.delegate = self
     }
     
     private func configure() {
@@ -548,6 +561,8 @@ final class BookViewController: UIViewController {
     
     
     //MARK: Selector
+    
+    
     @objc
     private func saveAction() {
         view.endEditing(true)
@@ -633,6 +648,8 @@ final class BookViewController: UIViewController {
         picker.allowsEditing = true
         present(picker, animated: true)
     }
+    
+    
 }
 
 
@@ -654,6 +671,13 @@ extension BookViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: - UITextViewDelegate
+extension BookViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        activeField = textView
+    }
+}
+
 //MARK: - UIImagePickerControllerDelegate
 extension BookViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController,
@@ -665,4 +689,53 @@ extension BookViewController: UIImagePickerControllerDelegate & UINavigationCont
         dismiss(animated: true)
     }
     
+}
+
+//MARK: - Keyboards events
+private extension BookViewController {
+    
+    func registerForKeyboardNotification() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_ :)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    func unregisterForKeyboardNotification() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc
+    func keyboardWillShow(_ notification: Notification) {
+        guard let frame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        scrollView.contentInset.bottom = frame.height
+        
+        if let active = activeField {
+            let frameInScroll = active.convert(active.bounds, to: scrollView)
+            scrollView.scrollRectToVisible(frameInScroll, animated: true)
+        }
+    }
+    
+    @objc
+    func keyboardWillHide(_ notification: Notification) {
+        scrollView.contentInset.bottom = .zero
+        activeField = nil
+    }
+    
+    private func setupGesture() {
+        let recognizer = UITapGestureRecognizer(target: self,
+                                                action: #selector(hideKeyboard))
+        view.addGestureRecognizer(recognizer)
+    }
+    
+    @objc
+    private func hideKeyboard() {
+        view.endEditing(true)
+    }
 }
