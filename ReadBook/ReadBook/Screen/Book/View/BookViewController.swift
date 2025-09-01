@@ -330,6 +330,10 @@ extension BookViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         activeField = textView
     }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textView.text = textView.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }
 
 //MARK: - UIImagePickerControllerDelegate
