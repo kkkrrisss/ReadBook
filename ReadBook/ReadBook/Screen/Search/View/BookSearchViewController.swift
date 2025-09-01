@@ -15,7 +15,7 @@ final class BookSearchViewController: UIViewController {
     private let searchBar: UISearchBar = {
         let search = UISearchBar()
         
-        search.placeholder = "Введите название книги или автора"
+        search.placeholder = "Enter the title of the book or the author".localized
         search.searchBarStyle = .minimal
         
         return search
@@ -42,7 +42,7 @@ final class BookSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Search"
+        title = "Search".localized
         navigationItem.largeTitleDisplayMode = .never
         
         setupUI()

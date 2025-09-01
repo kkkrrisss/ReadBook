@@ -114,18 +114,18 @@ class HomeScreenViewController: UIViewController {
     
     private func setupButtons() {
         //AddBookButton
-        addBookButton.setTitle("Add Book", for: .normal)
+        addBookButton.setTitle("Add Book".localized, for: .normal)
         setupButton(addBookButton)
         addBookButton.addTarget(self, action: #selector(goToBook), for: .touchUpInside)
         
         // libraryButton
-        libraryButton.setTitle("My Library", for: .normal)
+        libraryButton.setTitle("My Library".localized, for: .normal)
         setupButton(libraryButton)
         libraryButton.translatesAutoresizingMaskIntoConstraints = false
         libraryButton.addTarget(self, action: #selector(goToLibrary), for: .touchUpInside)
         
         //wishListButton
-        wishListButton.setTitle("Wish List", for: .normal)
+        wishListButton.setTitle("Wish List".localized, for: .normal)
         setupButton(wishListButton)
         wishListButton.translatesAutoresizingMaskIntoConstraints = false
         wishListButton.addTarget(self, action: #selector(goToWishList), for: .touchUpInside)
@@ -142,14 +142,14 @@ class HomeScreenViewController: UIViewController {
     private func goToBook() {
         
         let actions = [
-               UIAlertAction(title: "Ввести вручную",
+            UIAlertAction(title: "Enter manually".localized,
                              style: .default) { _ in
                    let bookVC = BookViewController()
                    let viewModel = BookViewModel(book: nil)
                    bookVC.viewModel = viewModel
                    self.navigationController?.pushViewController(bookVC, animated: true)
                },
-               UIAlertAction(title: "Поиск",
+            UIAlertAction(title: "Search".localized,
                              style: .default) { _ in
                    let viewModel = BookSearchViewModel()
                    let searchVC = BookSearchViewController(viewModel: viewModel)
@@ -158,8 +158,8 @@ class HomeScreenViewController: UIViewController {
            ]
            
         AlertManager.showActionShit(on: self,
-                                    title: "Добавить книгу",
-                                    message: "Выберите способ добавления",
+                                    title: "Add book".localized,
+                                    message: "Choose the method of adding".localized,
                                     actions: actions)
     }
     

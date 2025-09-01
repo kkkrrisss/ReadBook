@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  ReadBook
+
+  Created by Кристина Олейник on 01.09.2025.
+  
+*/
+
+"Add Book" = "Add Book";
+"My Library" = "My Library";
+"Wish List" = "Wish List";
+"Enter manually" = "Enter manually";
+"Search" = "Search";
+"Add book" = "Add book";
+"Choose the method of adding" = "Choose the method of adding";
+"Delete" = "Delete";
+"Enter the title of the book or the author" = "Enter the title of the book or the author";
+"Edit Cover" = "Edit Cover";
+
+"Title" = "Title";
+"Author" = "Author";
+"Publisher" = "Publisher";
+"Page" = "Page";
+"Description" = "Description";
+"Start date" = "Start date";
+"End date" = "End date";
+"Rating" = "Rating";
+"Comment" = "Comment";
+
+"Title can't be empty" = "Title can't be empty";
+"Author can't be empty" = "Author can't be empty";
+"End date can't be empty" = "End date can't be empty";
+"Start date can't be after end date" = "Start date can't be after end date";
+"Please rate the book :)" = "Please rate the book :)";
+
+"Upload from gallery" = "Upload from gallery";
+"Delete the cover" = "Delete the cover";
+"The cover" = "The cover";
+
+"Opsss" = "Opsss";
+"Ok" = "Ok";
+"Cancel" = "Cancel";

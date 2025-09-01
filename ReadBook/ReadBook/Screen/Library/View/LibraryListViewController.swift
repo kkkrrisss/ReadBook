@@ -12,7 +12,7 @@ final class LibraryListViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "My Library"
+        title = "My Library".localized
     }
     
 }

@@ -51,7 +51,7 @@ final class BookViewController: UIViewController {
     
     private let editCoverButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Edit Cover", for: .normal)
+        button.setTitle("Edit Cover".localized, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .darkBord
         button.layer.cornerRadius = 10
@@ -81,7 +81,7 @@ final class BookViewController: UIViewController {
     private let wishListButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("WishList", for: .normal)
+        button.setTitle("Wish List".localized, for: .normal)
         
         return button
     }()
@@ -89,7 +89,7 @@ final class BookViewController: UIViewController {
     private let libraryButton: UIButton = {
         let button = UIButton()
         
-        button.setTitle("Library", for: .normal)
+        button.setTitle("My Library".localized, for: .normal)
         
         return button
     }()
@@ -97,43 +97,43 @@ final class BookViewController: UIViewController {
     //MARK: Labels and Text Fields
     
     //Title
-    private lazy var titleLabel = makeLabel(text: "Title")
+    private lazy var titleLabel = makeLabel(text: "Title".localized)
     
     private let titleTextField = UITextField()
     
     //Author
-    private lazy var authorLabel = makeLabel(text: "Author")
+    private lazy var authorLabel = makeLabel(text: "Author".localized)
     
     private let authorTextField = UITextField()
     
     //publisher
-    private lazy var publisherLabel = makeLabel(text: "Publisher")
+    private lazy var publisherLabel = makeLabel(text: "Publisher".localized)
     
     private let publisherTextField = UITextField()
     
     //pages
-    private lazy var pagesLabel = makeLabel(text: "Page")
+    private lazy var pagesLabel = makeLabel(text: "Page".localized)
     
     private let pagesTextField = UITextField()
     
     //description
-    private lazy var descriptionLabel = makeLabel(text: "Description")
+    private lazy var descriptionLabel = makeLabel(text: "Description".localized)
     
     private let descriptionTextView = UITextView()
     
     
     //startDate
-    private lazy var startDateLabel = makeLabel(text: "Start date:")
+    private lazy var startDateLabel = makeLabel(text: "Start date".localized)
     
     private let startDateTextField = UITextField()
     
     //endDate
-    private lazy var endDateLabel = makeLabel(text: "End date:")
+    private lazy var endDateLabel = makeLabel(text: "End date".localized)
     
     private let endDateTextField = UITextField()
     
     //rating
-    private lazy var ratingLabel = makeLabel(text: "Rating:")
+    private lazy var ratingLabel = makeLabel(text: "Rating".localized)
     
     private let ratingStackView: UIStackView = {
         let stack = UIStackView()
@@ -144,7 +144,7 @@ final class BookViewController: UIViewController {
     }()
     
     //comment
-    private lazy var commentLabel = makeLabel(text: "Comment:")
+    private lazy var commentLabel = makeLabel(text: "Comment".localized)
     
     private let commentTextView = UITextView()
     
@@ -262,25 +262,25 @@ final class BookViewController: UIViewController {
     private func saveAction() {
         view.endEditing(true)
         if titleTextField.text == "" {
-            let message = "Title can't be empty"
+            let message = "Title can't be empty".localized
             AlertManager.showAlert(on: self,
                                    message: message)
         } else if authorTextField.text == "" {
-            let message = "Author can't be empty"
+            let message = "Author can't be empty".localized
             AlertManager.showAlert(on: self,
                                    message: message)
         } else if viewModel?.typeBook == .library && endDateTextField.text == "" {
-            let message = "End date can't be empty"
+            let message = "End date can't be empty".localized
             AlertManager.showAlert(on: self,
                                    message: message)
         } else if let start = startDate,
                   let end = endDate,
                   start > end {
-            let message = "Start date can't be after end date"
+            let message = "Start date can't be after end date".localized
             AlertManager.showAlert(on: self,
                                    message: message)
         } else if viewModel?.currentRating == 0 && viewModel?.typeBook == .library {
-            let message = "Please rate the book :)"
+            let message = "Please rate the book :)".localized
             AlertManager.showAlert(on: self,
                                    message: message)
         } else {
@@ -513,7 +513,7 @@ extension BookViewController {
         
         var actions: [UIAlertAction] = []
         
-        actions.append(UIAlertAction(title: "Загрузить из галереи",
+        actions.append(UIAlertAction(title: "Upload from gallery".localized,
                                      style: .default) { _ in
             self.openImagePicker()
         })
@@ -521,7 +521,7 @@ extension BookViewController {
         //delete if image not mock
         if let currentImage = viewModel?.getCoverImage(),
            currentImage != UIImage(named: "mock") {
-            actions.append(UIAlertAction(title: "Удалить обложку",
+            actions.append(UIAlertAction(title: "Delete the cover".localized,
                                          style: .destructive) { _ in
                 self.viewModel?.markImageForDeletion()
                 self.coverImageView.image = self.viewModel?.getCoverImage()
@@ -530,7 +530,7 @@ extension BookViewController {
         
         
         AlertManager.showActionShit(on: self,
-                                    title: "Обложка",
+                                    title: "The cover".localized,
                                     actions: actions)
     }
     

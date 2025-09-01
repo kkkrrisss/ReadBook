@@ -1,0 +1,42 @@
+/* 
+  Localizable.strings
+  ReadBook
+
+  Created by Кристина Олейник on 01.09.2025.
+  
+*/
+
+"Add Book" = "Добавить книгу";
+"My Library" = "Моя библиотека";
+"Wish List" = "Список желаний";
+"Enter manually" = "Ввести вручную";
+"Search" = "Поиск";
+"Add book" = "Добавить книгу";
+"Choose the method of adding" = "Выберите способ добавления";
+"Delete" = "Удалить";
+"Enter the title of the book or the author" = "Введите название книги или автора";
+"Edit Cover" = "Редактировать обложку";
+
+"Title" = "Название";
+"Author" = "Автор";
+"Publisher" = "Издательство";
+"Page" = "Количество страниц";
+"Description" = "Описание";
+"Start date" = "Дата начала";
+"End date" = "Дата конца";
+"Rating" = "Рейтинг";
+"Comment" = "Комментарий";
+
+"Title can't be empty" = "Поле «Название» не может быть пустым";
+"Author can't be empty" = "Поле «Автор» не может быть пустым";
+"End date can't be empty" = "Поле «Дата конца» не может быть пустым";
+"Start date can't be after end date" = "Дата начала не может быть позже, чем дата конца";
+"Please rate the book :)" = "Пожалуйста, оцените книгу :)";
+
+"Upload from gallery" = "Загрузить из галереи";
+"Delete the cover" = "Удалить обложку";
+"The cover" = "Обложка";
+
+"Opsss" = "Упс";
+"Ok" = "Ок";
+"Cancel" = "Отмена";

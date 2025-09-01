@@ -9,9 +9,9 @@ import UIKit
 
 final class AlertManager {
     static func showAlert(on viewController: UIViewController,
-                          title: String = "Opsss",
+                          title: String = "Opsss".localized,
                           message: String,
-                          buttonTitle: String = "Ok") {
+                          buttonTitle: String = "Ok".localized) {
         
         let alert = UIAlertController(title: title,
                                       message: message,

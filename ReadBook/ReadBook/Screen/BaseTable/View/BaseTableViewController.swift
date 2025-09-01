@@ -105,7 +105,7 @@ extension BaseTableViewController {
     ) -> UISwipeActionsConfiguration? {
         
         let deleteAction = UIContextualAction(style: .destructive,
-                                              title: "Delete") { [weak self] (_, _, completionHandler) in
+                                              title: "Delete".localized) { [weak self] (_, _, completionHandler) in
             self?.viewModel?.deleteBook(at: indexPath)
             completionHandler(true)
         }

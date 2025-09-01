@@ -13,6 +13,6 @@ final class WishListViewController: BaseTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Wish List"
+        title = "Wish List".localized
     }
 }
